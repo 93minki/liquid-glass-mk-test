@@ -1,6 +1,21 @@
-import { LiquidGlass } from "liquid-glass-mk";
+import { createLiquidGlassCursor, LiquidGlass } from "liquid-glass-mk";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    // 페이지 로드 시 커서 효과 시작
+    const cleanup = createLiquidGlassCursor({
+      size: 120,
+      blur: 1,
+      intensity: 0.3,
+      color: "rgba(255, 255, 255, 0.3)", // alpha 값 높이기
+      duration: 200,
+    });
+
+    // 컴포넌트 언마운트 시 정리
+    return cleanup;
+  }, []);
+
   return (
     <div
       style={{
