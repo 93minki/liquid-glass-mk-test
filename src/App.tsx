@@ -26,30 +26,23 @@ import { SiApplenews, SiAppletv } from "react-icons/si";
 import { TiCompass } from "react-icons/ti";
 import { WiDayCloudy } from "react-icons/wi";
 import "./index.css";
+import { imageList } from "./imglist";
 
-const bg1 =
-  "url('https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=600&fit=crop&crop=entropy&cs=srgb&fm=jpg&q=50') center/cover no-repeat";
-const bg2 =
-  "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=600&fit=crop&crop=entropy&cs=srgb&fm=jpg&q=50') center/cover no-repeat";
-const bg3 =
-  "url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&h=600&fit=crop&crop=entropy&cs=srgb&fm=jpg&q=50') center/cover no-repeat";
-
-const bgArray = [bg1, bg2, bg3];
 
 function App() {
   const [imageNumber, setImageNumber] = useState(0);
-  const [imageUrl, setImageUrl] = useState(bgArray[0]);
+  const [imageUrl, setImageUrl] = useState(imageList[0]);
   const [isLoading, setIsLoading] = useState(false);
 
   const nextImage = () => {
     if (isLoading) return;
 
     setIsLoading(true);
-    const nextIndex = imageNumber === bgArray.length - 1 ? 0 : imageNumber + 1;
+    const nextIndex = imageNumber === imageList.length - 1 ? 0 : imageNumber + 1;
     setImageNumber(nextIndex);
-    setImageUrl(bgArray[nextIndex]);
+    setImageUrl(imageList[nextIndex]);
 
-    const imageUrl = bgArray[nextIndex].match(/url\('([^']+)'\)/)?.[1];
+    const imageUrl = imageList[nextIndex].match(/url\('([^']+)'\)/)?.[1];
     if (imageUrl) {
       const img = new Image();
       img.onload = () => setIsLoading(false);
@@ -63,11 +56,11 @@ function App() {
     if (isLoading) return;
 
     setIsLoading(true);
-    const prevIndex = imageNumber === 0 ? bgArray.length - 1 : imageNumber - 1;
+    const prevIndex = imageNumber === 0 ? imageList.length - 1 : imageNumber - 1;
     setImageNumber(prevIndex);
-    setImageUrl(bgArray[prevIndex]);
+    setImageUrl(imageList[prevIndex]);
 
-    const imageUrl = bgArray[prevIndex].match(/url\('([^']+)'\)/)?.[1];
+    const imageUrl = imageList[prevIndex].match(/url\('([^']+)'\)/)?.[1];
     if (imageUrl) {
       const img = new Image();
       img.onload = () => setIsLoading(false);
@@ -78,7 +71,7 @@ function App() {
   };
 
   useEffect(() => {
-    bgArray.forEach((url) => {
+    imageList.forEach((url) => {
       const imageUrl = url.match(/url\('([^']+)'\)/)?.[1];
       if (imageUrl) {
         const img = new Image();
